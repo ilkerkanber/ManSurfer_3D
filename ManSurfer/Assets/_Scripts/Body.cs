@@ -11,6 +11,6 @@ public class Body : MonoBehaviour
     }
     void FixedUpdate()
     {
-        transform.position = _bag.bag[0].gameObject.transform.position-Vector3.up * 0.2f;
+        transform.position = _bag.bag[0].gameObject.transform.position - Vector3.up * 0.2f;
     }
 }

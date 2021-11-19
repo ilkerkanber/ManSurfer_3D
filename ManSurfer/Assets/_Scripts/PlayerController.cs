@@ -33,6 +33,17 @@ public class PlayerController : MonoBehaviour, IEntityController
         {
             return;
         }
-        _bag.AddCube(collider.GetComponent<Box>());
+        if (collider.CompareTag("Collectable"))
+        {
+            _bag.AddCube(collider.GetComponent<Box>());
+        }
+        if (collider.transform.parent.TryGetComponent<ObstacleCreater>(out ObstacleCreater _obs))
+        {
+            if (!_obs.IsEntered)
+            {
+                _bag.RemoveCube(_obs.BoxCount);
+                _obs.IsEntered = true;
+            }
+        }
     }
 }
