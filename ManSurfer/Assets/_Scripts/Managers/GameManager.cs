@@ -6,6 +6,10 @@ public class GameManager : ASingleton<GameManager>
 {
     public static event System.Action OnGameOver;
     public static event System.Action OnWin;
+    public static event System.Action OnNextLevel;
+
+    public bool IsStarted;
+    public int currentLevel;
 
     void Awake()
     {
@@ -13,12 +17,15 @@ public class GameManager : ASingleton<GameManager>
     }
     public void GameOver() 
     {
-        Debug.Log("Oyun bitti");
         OnGameOver?.Invoke();
     }
     public void Win()
     {
         OnWin?.Invoke();
+    }
+    public void NextLevel()
+    {
+        OnNextLevel?.Invoke();
     }
 
 }

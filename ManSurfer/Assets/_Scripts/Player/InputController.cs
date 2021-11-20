@@ -12,6 +12,12 @@ public class InputController
         {
             Touch _touch = Input.GetTouch(0);
 
+            if (!GameManager.Instance.IsStarted)
+            {
+                GameManager.Instance.IsStarted = true;
+                UIManager.Instance.DisableStartCanvas();
+            }
+
             switch (_touch.phase)
             {
                 case TouchPhase.Began:

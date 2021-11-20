@@ -36,6 +36,10 @@ public class PlayerController : MonoBehaviour, IEntityController
     }
     void FixedUpdate()
     {
+        if (!GameManager.Instance.IsStarted) 
+        {
+            return;
+        }
         _mover.Active(horizontalSpeed * inputValue, verticalSpeed);        
     }
     void OnFreeze()
