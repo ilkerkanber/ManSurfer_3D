@@ -10,12 +10,23 @@ public class PlayerController : MonoBehaviour, IEntityController
     IMover _mover;
     InputController _inputController;
     Bag _bag;
+    CollisionController _collisionController;
 
-    float inputValue,bugTimer;
-
+    float inputValue;
+    void OnEnable()
+    {
+        GameManager.OnGameOver += OnFreeze;
+        GameManager.OnWin += OnFreeze;
+    }
+    void OnDisable()
+    {
+        GameManager.OnGameOver -= OnFreeze;
+        GameManager.OnWin -= OnFreeze;
+    }
     void Awake()
     {
         _bag = GetComponentInChildren<Bag>();
+        _collisionController = new CollisionController(_bag);
         _inputController = new InputController();
         _mover = new Mover(this);
     }
@@ -27,23 +38,17 @@ public class PlayerController : MonoBehaviour, IEntityController
     {
         _mover.Active(horizontalSpeed * inputValue, verticalSpeed);        
     }
+    void OnFreeze()
+    {
+        verticalSpeed = 0;
+        horizontalSpeed = 0;
+    }
     void OnTriggerEnter(Collider collider)
     {
-        if (Time.time < bugTimer + 0.2f)
-        {
-            return;
-        }
-        if (collider.CompareTag("Collectable"))
-        {
-            _bag.AddCube(collider.GetComponent<Box>());
-        }
-        if (collider.transform.parent.TryGetComponent<ObstacleCreater>(out ObstacleCreater _obs))
-        {
-            if (!_obs.IsEntered)
-            {
-                _bag.RemoveCube(_obs.BoxCount);
-                _obs.IsEntered = true;
-            }
-        }
+        _collisionController.OnTriggerEnter(collider);
+    }
+    void OnTriggerStay(Collider collider)
+    {
+        _collisionController.OnTriggerStay(collider);
     }
 }

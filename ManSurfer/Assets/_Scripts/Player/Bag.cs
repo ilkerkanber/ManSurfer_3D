@@ -27,6 +27,10 @@ public class Bag : MonoBehaviour
     }
     public void RemoveCube(int count)
     {
+        if (bag.Count == 0)
+        {
+            return;
+        }
         int remove = bag.Count - count;
         int bCOunt = bag.Count;
         for (int i = bCOunt-1; i >= remove; i--) 
@@ -34,6 +38,11 @@ public class Bag : MonoBehaviour
             bag[i].IsBag = false;
             bag[i].transform.parent = trasheBox.transform;
             bag.RemoveAt(i);
+            if (bag.Count == 0)
+            {
+                GameManager.Instance.GameOver();
+                return;
+            }
             SortSpeeds(-1);
         }
     }
