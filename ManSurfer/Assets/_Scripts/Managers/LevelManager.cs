@@ -15,7 +15,6 @@ public class LevelManager : ASingleton<LevelManager>
     {
         GameManager.OnNextLevel -= NewLevel;
         GameManager.OnRestartLevel -= NewLevel;
-
     }
     void Awake()
     {

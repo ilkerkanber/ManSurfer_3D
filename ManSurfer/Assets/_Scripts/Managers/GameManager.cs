@@ -36,6 +36,7 @@ public class GameManager : ASingleton<GameManager>
     {
         if (currentLevel == 5)
         {
+            Debug.Log("Leveller bitti");
             return;
         }
         ResetStates();
