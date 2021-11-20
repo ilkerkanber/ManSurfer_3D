@@ -23,7 +23,7 @@ public class Box : MonoBehaviour
     {
         if (IsBag)
         {
-            float x=Mathf.Lerp(transform.position.x, target.transform.position.x, Time.deltaTime * speed);
+            float x = Mathf.Lerp(transform.position.x, target.transform.position.x, Time.deltaTime * speed);
             transform.position = new Vector3(x, transform.position.y, target.transform.position.z);
         }
     }
