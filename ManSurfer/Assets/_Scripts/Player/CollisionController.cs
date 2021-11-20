@@ -17,9 +17,11 @@ public class CollisionController
         {
             return;
         }
-        if (collider.CompareTag("Collectable"))
+        switch (collider.tag)
         {
-            _bag.AddCube(collider.GetComponent<Box>());
+            case "FinishLine":
+                GameManager.Instance.Win();
+                break;
         }
 
         if (collider.transform.parent != null)
@@ -36,8 +38,7 @@ public class CollisionController
     }
     public void OnTriggerStay(Collider collider)
     {
-        Debug.Log("Stay:"+ collider.name);
-        if (Time.time < stayTimer + 0.5f)
+        if (Time.time < stayTimer + 0.3f)
         {
             return;
         }

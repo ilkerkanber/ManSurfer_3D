@@ -13,16 +13,7 @@ public class PlayerController : MonoBehaviour, IEntityController
     CollisionController _collisionController;
 
     float inputValue;
-    void OnEnable()
-    {
-        GameManager.OnGameOver += OnFreeze;
-        GameManager.OnWin += OnFreeze;
-    }
-    void OnDisable()
-    {
-        GameManager.OnGameOver -= OnFreeze;
-        GameManager.OnWin -= OnFreeze;
-    }
+    
     void Awake()
     {
         _bag = GetComponentInChildren<Bag>();
@@ -36,16 +27,11 @@ public class PlayerController : MonoBehaviour, IEntityController
     }
     void FixedUpdate()
     {
-        if (!GameManager.Instance.IsStarted) 
+        if (!GameManager.Instance.IsStarted || GameManager.Instance.IsFinished) 
         {
             return;
         }
         _mover.Active(horizontalSpeed * inputValue, verticalSpeed);        
-    }
-    void OnFreeze()
-    {
-        verticalSpeed = 0;
-        horizontalSpeed = 0;
     }
     void OnTriggerEnter(Collider collider)
     {

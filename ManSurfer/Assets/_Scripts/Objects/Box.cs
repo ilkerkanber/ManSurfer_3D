@@ -31,4 +31,15 @@ public class Box : MonoBehaviour
     {
         target = FindObjectOfType<PlayerController>().gameObject;
     }
+    void OnTriggerEnter(Collider collider)
+    {
+        if (!IsBag)
+        {
+            if (collider.GetComponentInChildren<Bag>())
+            {
+                Bag bag= collider.GetComponentInChildren<Bag>();
+                bag.AddCube(GetComponent<Box>());
+            }
+        }
+    }
 }

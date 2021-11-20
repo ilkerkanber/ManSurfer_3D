@@ -2,17 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : ASingleton<LevelManager>
 {
-    // Start is called before the first frame update
+    [SerializeField] List<GameObject> levelList;
+
+    void OnEnable()
+    {
+        GameManager.OnNextLevel += NewLevel;
+        GameManager.OnRestartLevel += NewLevel;
+    }
+    void OnDisable()
+    {
+        GameManager.OnNextLevel -= NewLevel;
+        GameManager.OnRestartLevel -= NewLevel;
+
+    }
+    void Awake()
+    {
+        SetupSingleton(this);
+    }
     void Start()
     {
-        
+        Instantiate(levelList[GameManager.Instance.currentLevel], Vector3.zero, transform.rotation);
     }
-
-    // Update is called once per frame
-    void Update()
+    void NewLevel()
     {
-        
+        DestroyImmediate(GameObject.FindGameObjectWithTag("LEVEL"));
+        Instantiate(levelList[GameManager.Instance.currentLevel], Vector3.zero, transform.rotation);
     }
 }

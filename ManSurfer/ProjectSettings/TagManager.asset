@@ -8,6 +8,8 @@ TagManager:
   - MyBox
   - TrasheBoxs
   - ObsSpace
+  - FinishLine
+  - LEVEL
   layers:
   - Default
   - TransparentFX

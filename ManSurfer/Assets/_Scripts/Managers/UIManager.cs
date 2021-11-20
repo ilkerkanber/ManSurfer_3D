@@ -20,6 +20,10 @@ public class UIManager : ASingleton<UIManager>
         GameManager.OnWin -= EnableWinCanvas;
         GameManager.OnGameOver -= EnableLoseCanvas;
     }
+    void Awake()
+    {
+        SetupSingleton(this);
+    }
     public void DisableStartCanvas()
     {
         StartCanvas.SetActive(false);
