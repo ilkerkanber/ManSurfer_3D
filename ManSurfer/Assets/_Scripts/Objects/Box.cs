@@ -7,7 +7,7 @@ public class Box : MonoBehaviour
     [SerializeField] GameObject target;
     public float speed;
     public bool IsBag;
-
+    PlayerController pl;
     void Start()
     {
         FindPlayer();    
@@ -23,14 +23,33 @@ public class Box : MonoBehaviour
     {
         if (IsBag)
         {
-            float x = Mathf.Lerp(transform.position.x, target.transform.position.x, Time.deltaTime * speed);
-            transform.position = new Vector3(x, transform.position.y, target.transform.position.z);
+            switch (pl.directionBound)
+            {
+                case "X":
+                    LerpX();
+                    break;
+
+                case "Z":
+                    LerpZ();
+                    break;
+            }
             transform.rotation = target.transform.rotation;
         }
     }
+    void LerpX()
+    {
+        float x = Mathf.Lerp(transform.position.x, target.transform.position.x, Time.deltaTime * speed);
+        transform.position = new Vector3(x, transform.position.y, target.transform.position.z);
+    }
+    void LerpZ()
+    {
+        float z= Mathf.Lerp(transform.position.z, target.transform.position.z, Time.deltaTime * speed);
+        transform.position = new Vector3(target.transform.position.x, transform.position.y, z);
+    }
     void FindPlayer()
     {
-        target = FindObjectOfType<PlayerController>().gameObject;
+        pl = FindObjectOfType<PlayerController>();
+        target = pl.gameObject;
     }
     void OnTriggerEnter(Collider collider)
     {

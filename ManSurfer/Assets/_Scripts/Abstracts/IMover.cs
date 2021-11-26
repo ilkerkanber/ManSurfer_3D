@@ -4,5 +4,6 @@ using UnityEngine;
 
 public interface IMover 
 {
-    void Active(float valueX, float valueZ);
+    void Movement(float valueX, float valueZ);
+    void SetBound(string direction, Vector2 bounds);
 }

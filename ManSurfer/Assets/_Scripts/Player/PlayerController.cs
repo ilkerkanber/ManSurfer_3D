@@ -12,8 +12,10 @@ public class PlayerController : MonoBehaviour, IEntityController
     Bag _bag;
     CollisionController _collisionController;
 
+    public Vector2 boundValues;
+    public string directionBound;
     float inputValue;
-    
+
     void Awake()
     {
         _bag = GetComponentInChildren<Bag>();
@@ -31,7 +33,8 @@ public class PlayerController : MonoBehaviour, IEntityController
         {
             return;
         }
-        _mover.Active(horizontalSpeed * inputValue, verticalSpeed);        
+        _mover.Movement(horizontalSpeed * inputValue, verticalSpeed);
+        _mover.SetBound(directionBound,boundValues);
     }
     void OnTriggerEnter(Collider collider)
     {

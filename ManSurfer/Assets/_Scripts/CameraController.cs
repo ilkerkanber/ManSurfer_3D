@@ -1,27 +1,23 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] GameObject target;
-    [SerializeField] float distanceY, distanceZ;
-    void Update()
+    CinemachineVirtualCamera cam;
+    void Awake()
     {
-        if (target == null)
-        {
-            target = GameObject.FindGameObjectWithTag("Player");
-        }
+        cam = GetComponent<CinemachineVirtualCamera>();
     }
     void LateUpdate()
     {
-        if (target != null)
+        if (cam.Follow == null || cam.LookAt == null)
         {
-            WatchTarget();
+            Transform playerRoot = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerRoot>().transform;
+            cam.Follow = playerRoot;
+            cam.LookAt = playerRoot;
         }
     }
-    void WatchTarget()
-    {
-        transform.position = new Vector3(0, distanceY, target.transform.position.z+distanceZ);
-    }
+
 }
