@@ -7,6 +7,7 @@ public class Box : MonoBehaviour
     [SerializeField] GameObject target;
     public float speed;
     public bool IsBag;
+
     PlayerController pl;
     void Start()
     {

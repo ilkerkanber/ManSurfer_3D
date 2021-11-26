@@ -5,11 +5,9 @@ using UnityEngine;
 public class Mover: IMover
 {
     IEntityController _playerController;
-    Rigidbody rb;
     public Mover(IEntityController playerController)
     {
         _playerController = playerController;
-        rb = _playerController.GetComponent<Rigidbody>();
     }
     public void Movement(float valueX, float valueZ)
     {
