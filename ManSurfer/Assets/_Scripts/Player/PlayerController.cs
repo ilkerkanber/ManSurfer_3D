@@ -9,8 +9,6 @@ public class PlayerController : MonoBehaviour, IEntityController
 
     IMover _mover;
     InputController _inputController;
-    Bag _bag;
-    CollisionController _collisionController;
 
     public Vector2 boundValues;
     public string directionBound;
@@ -18,8 +16,6 @@ public class PlayerController : MonoBehaviour, IEntityController
 
     void Awake()
     {
-        _bag = GetComponentInChildren<Bag>();
-        _collisionController = new CollisionController(_bag);
         _inputController = new InputController();
         _mover = new Mover(this);
     }
@@ -35,13 +31,5 @@ public class PlayerController : MonoBehaviour, IEntityController
         }
         _mover.Movement(horizontalSpeed * inputValue, verticalSpeed);
         _mover.SetBound(directionBound,boundValues);
-    }
-    void OnTriggerEnter(Collider collider)
-    {
-        _collisionController.OnTriggerEnter(collider);
-    }
-    void OnTriggerStay(Collider collider)
-    {
-        _collisionController.OnTriggerStay(collider);
     }
 }

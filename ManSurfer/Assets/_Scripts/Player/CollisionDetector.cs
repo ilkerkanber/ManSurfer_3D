@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollisionController
+public class CollisionDetector: MonoBehaviour
 {
     Bag _bag;
     float bugTimer,stayTimer;
 
-    public CollisionController(Bag bag)
+    void Awake()
     {
-        _bag = bag;
+        _bag = GetComponentInChildren<Bag>();
     }
-    public void OnTriggerEnter(Collider collider) 
+    void OnTriggerEnter(Collider collider) 
     {
         if (Time.time < bugTimer + 0.2f)
         {
@@ -36,7 +36,7 @@ public class CollisionController
             }
         }
     }
-    public void OnTriggerStay(Collider collider)
+    void OnTriggerStay(Collider collider)
     {
         if (Time.time < stayTimer + 0.3f)
         {
